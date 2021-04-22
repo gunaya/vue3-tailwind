@@ -1,7 +1,9 @@
 import { ref } from "vue";
+import { useStore } from 'vuex'
 
 export default function() {
     const theme_color = ref('');
+    const store = useStore()
 
     const initTheme = () => {
         const cachedTheme = localStorage.theme ? localStorage.theme : false;
@@ -25,8 +27,12 @@ export default function() {
             document.querySelector('html').classList.remove('dark')
         }
 
+        store.commit('ThemeModule/setTheme', theme)
+
         localStorage.theme = theme
         theme_color.value = theme
+
+
     }
 
     return { initTheme, theme_color, setTheme }

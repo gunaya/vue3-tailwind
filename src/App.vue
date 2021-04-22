@@ -14,7 +14,7 @@
     <div class="flex flex-col">
       <img alt="Vue logo" src="./assets/logo.png" class=" w-40 mx-auto">
       <div class=" mx-auto font-mono">
-        <p class="text-4xl font-bold text-gray-800 dark:text-white">Mode</p>
+        <p class="text-4xl font-bold text-gray-800 dark:text-white"> {{ theme == 'dark' ? 'Dark ': 'Light ' }} Mode</p>
       </div>
     </div>
   </div>
@@ -22,16 +22,21 @@
 </template>
 
 <script>
-// import { ref } from 'vue';
+import { computed } from 'vue';
 import ThemeToggler from './components/ThemeToggler.vue';
-  
-  export default {
-    name: 'App',
-    components: { ThemeToggler },
-    setup() {
-      
+import { useStore } from "vuex";
+
+export default {
+  name: 'App',
+  components: { ThemeToggler },
+  setup() {
+    const store = useStore();
+
+    return {
+      theme: computed(() => store.state.ThemeModule.theme_color)
     }
   }
+}
 </script>
 
 <style>
